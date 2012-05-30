@@ -1,0 +1,217 @@
+﻿@{
+  ViewBag.Title = "How OAuth works";
+}
+<hgroup class="title">
+  <h1>OAuth 2.0.</h1>
+  <h2>How it works?</h2>
+</hgroup>
+<section>
+  <ol class="round">
+    <li class="one">
+      <h5>The flow</h5>
+      <canvas id="canvas" width="800" height="280">
+
+      </canvas>
+    </li>
+    <li class="two">
+      <h5>Authorise client</h5>
+<request>
+<dark>https://oauth.live.com/authorize/authorize</dark><br />
+&nbsp;&nbsp;?<red>client_id</red>=<blue>000000004006F97D</blue><br />
+&nbsp;&nbsp;&<red>scope</red>=<blue>wl.basic</blue><br />
+&nbsp;&nbsp;&<red>response_type</red>=<blue>code</blue><br />
+&nbsp;&nbsp;&<red>redirect_uri</red>=<blue>http://ddddemo.com/signin/OAuthCallback?__provider=windowslive</blue>
+</request>
+<response>
+<dark>http://ddddemo.com/signin/OAuthCallback</dark><br />
+&nbsp;&nbsp;?<red>__provider</red>=<blue>windowslive</blue><br />
+&nbsp;&nbsp;&<red>code</red>=<blue>8d86369a-f091-2c9a-2567-78e90075d731</blue>
+</response>
+    </li>
+    <li class="three">
+      <h5>Get access token</h5>
+<request>
+  <dark>https://oauth.live.com/token</dark></br>
+&nbsp;&nbsp;?<red>client_id</red>=<blue>000000004006F97D</blue></br>
+&nbsp;&nbsp;&<red>client_secret</red>=<blue>OdQmjvitSJpdut55VeqwrU14C4ON6eli</blue></br>
+&nbsp;&nbsp;&<red>code</red>=<blue>8d86369a-f091-2c9a-2567-78e90075d731</blue></br>
+&nbsp;&nbsp;&<red>redirect_uri</red>=<blue>http://ddddemo.com/signin/OAuthCallback?__provider=windowslive&grant_type=authorization_code</blue>
+</request>
+<response>
+{<br />
+&nbsp;&nbsp;<red>"access_token"</red>:<blue>"EwAwAq1DBAAUlbRWyAJjK5w968Ru3Cyt%2F...."</blue>,<br />
+&nbsp;&nbsp;<red>"authentication_token"</red>:<blue>"eyJhCwYMhaGFfHrp4dDvL4yxC4m9D8%2F%2B7%2FRvQ...."</blue>,<br />
+&nbsp;&nbsp;<red>"expires_in"</red>:<blue>3600</blue>,<br />
+&nbsp;&nbsp;<red>"scope"</red>":<blue>"wl.basic"</blue>,<br />
+&nbsp;&nbsp;<red>"token_type"</red>:<blue>"bearer"</blue><br />
+}
+</response>
+    </li>
+
+    <li class="four">
+      <h5>Get data</h5>
+<request>
+<dark>https://apis.live.net/v5.0/me</dark><br />
+&nbsp;&nbsp;?<red>access_token</red>=<blue>EwAwAq1DBAAUlbRWyAJjK5w968Ru3Cyt%2F....</blue>
+</request>
+<response>
+{<br />
+&nbsp;&nbsp;<red>"id"</red>:<blue>"8d68d71ae8b80890"</blue>,<br />
+&nbsp;&nbsp;<red>"name"</red>:<blue>"Jimmy Skowronski"</blue>,<br />
+&nbsp;&nbsp;<red>"first_name"</red>:<blue>"Jimmy"</blue>,<br />
+&nbsp;&nbsp;<red>"last_name"</red>:<blue>"Skowronski"</blue>,<br />
+&nbsp;&nbsp;<red>"link"</red>:<blue>"http://profile.live.com/cid-8d68d71ae8b80890/"</blue>,<br />
+&nbsp;&nbsp;<red>"gender"</red>:<blue>"null"</blue>,<br />
+&nbsp;&nbsp;<red>"locale"</red>:<blue>"en_GB"</blue>,<br />
+&nbsp;&nbsp;<red>"updated_time"</red>:<blue>"2011-12-23T09:40:06+0000"</blue>,<br />
+}
+</response>
+    </li>
+  </ol>      
+</section>
+<script type="text/javascript">
+  ArrowRight = function (ctx, x, y, color) {
+    var size = 5;
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = color;
+    ctx.moveTo(x - size, y - size);
+    ctx.lineTo(x, y);
+    ctx.lineTo(x - size, y + size);
+    ctx.stroke();
+  }
+
+  ArrowLeft = function (ctx, x, y, color) {
+    var size = 5;
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = color;
+    ctx.moveTo(x + size, y - size);
+    ctx.lineTo(x, y);
+    ctx.lineTo(x + size, y + size);
+    ctx.stroke();
+  }
+
+  var c=document.getElementById("canvas");
+  var ctx=c.getContext("2d");
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#0000ff";
+  ctx.moveTo(30,20);
+  ctx.lineTo(30,300);
+  ctx.stroke();
+  ctx.font = "bold 14px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("Browser", 10, 10);
+
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#0000ff";
+  ctx.moveTo(280,20);
+  ctx.lineTo(280,300);
+  ctx.stroke();
+  ctx.font = "bold 14px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("Server-Side", 250, 10);
+
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#0000ff";
+  ctx.moveTo(530, 20);
+  ctx.lineTo(530, 300);
+  ctx.stroke();
+  ctx.font = "bold 14px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("oauth.live.com", 490, 10);
+
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#0000ff";
+  ctx.moveTo(780, 20);
+  ctx.lineTo(780, 300);
+  ctx.stroke();
+  ctx.font = "bold 14px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("apis.live.net", 720, 10);
+
+
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#006400";
+  ctx.moveTo(30, 40);
+  ctx.lineTo(530, 40);
+  ctx.stroke();
+  ctx.font = "12px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("https://oauth.live.com/authorize/authorize", 40, 35);
+  ArrowRight(ctx, 530, 40, "#006400");
+
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#006400";
+  ctx.moveTo(530, 70);
+  ctx.lineTo(280, 70);
+  ctx.stroke();
+  ctx.font = "12px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("http://ddddemo.com/signin/OAuthCallback?code=8d863...", 290, 65);
+  ArrowLeft(ctx, 280, 70, "#006400");
+
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#ff0000";
+  ctx.moveTo(280, 120);
+  ctx.lineTo(530, 120);
+  ctx.stroke();
+  ctx.font = "12px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("https://oauth.live.com/token?code=8d863...", 290, 115);
+  ArrowRight(ctx, 530, 120, "#ff0000");
+
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#ff0000";
+  ctx.moveTo(530, 150);
+  ctx.lineTo(280, 150);
+  ctx.stroke();
+  ctx.font = "12px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText('{ "access_token":"EwAwAq1DBAA..." }', 290, 145);
+  ArrowLeft(ctx, 280, 150, "#ff0000");
+
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#ff0000";
+  ctx.moveTo(280, 200);
+  ctx.lineTo(780, 200);
+  ctx.stroke();
+  ctx.font = "12px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("https://apis.live.net/v5.0/me?access_token=EwAwAq1...", 290, 195);
+  ArrowRight(ctx, 780, 200, "#ff0000");
+
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#ff0000";
+  ctx.moveTo(780, 230);
+  ctx.lineTo(280, 230);
+  ctx.stroke();
+  ctx.font = "12px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText('{ "id":"8d68d71ae8b..." }', 290, 225);
+  ArrowLeft(ctx, 280, 230, "#ff0000");
+
+  ctx.beginPath();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#006400";
+  ctx.moveTo(30, 260);
+  ctx.lineTo(280, 260);
+  ctx.stroke();
+  ctx.font = "12px Calibri";
+  ctx.fillStyle = "#000000";
+  ctx.fillText("logged in", 40, 255);
+  ArrowLeft(ctx, 30, 260, "#006400");
+
+
+
+</script>

@@ -1,0 +1,67 @@
+@{
+  ViewBag.Title = "Home Page";
+}
+@section featured {
+  <section class="featured">
+    <div class="content-wrapper">
+      <hgroup class="title">
+        <h1>OAuth:</h1>
+        <h2>Who needs more passwords?</h2>
+      </hgroup>
+      <p>
+        This session will show you how to get rid of your individual password storage and
+        authenticate your user using OAuth with Live ID, Google or Facebook. We will do
+        it all in less than one hour. It’s really so simple.
+      </p>
+      <p>Please feel free to ask questions at any time. </p>
+    </div>
+  </section>
+}
+<article>
+  <h3>Agenda</h3>
+  <ol class="round">
+    <li class="one">
+      <h5>@Html.ActionLink("Introduction", "intro", "home")</h5>
+      A few words about this and that before we start.
+    </li>
+    <li class="two">
+      <h5>@Html.ActionLink("Live ID", "liveid", "home")</h5>
+      Using the latest WebMatrix 2.0 (still beta) and exactly 25 lines of code (markup
+      is not a code) we will make users of this site able to log in with the Live ID.
+    </li>
+    <li class="three">
+      <h5>@Html.ActionLink("How OAuth works", "oauth", "home")</h5>
+      With the simple example working we will look at how the OAuth works so we will understand
+      what is going on behind the scenes. </li>
+    <li class="four">
+      <h5>@Html.ActionLink("Google", "google", "home")</h5>
+      There is no Google client in the WebMatrix so we have to write our own. It’s very
+      easy job and one that will give us more understanding on OAuth mechanism. We will
+      also see how Google implementation differs from Live ID. </li>
+    <li class="five">
+      <h5>@Html.ActionLink("Back to Live ID", "liveidagain", "home")</h5>
+      If we will still have time, we will extend the Live ID client to get more information about the user.
+    </li>
+    <li class="six">
+      <h5>@Html.ActionLink("Le grande finale", "final", "home")</h5>
+      Time to wrap up and answer any still unanswered questions.
+      </li>
+  </ol>
+</article>
+<aside>
+  @if (User.Identity.IsAuthenticated)
+  {
+    <h3>Current User</h3>
+    <ul>
+      <li><strong>ID: </strong>@Session["id"]</li>
+      <li><strong>Provider: </strong>@Session["provider"]</li>
+      <li><strong>Email: </strong>@Session["email"]</li>
+    </ul>
+  }
+  else
+  {
+    <h3>Not authenticated</h3>
+    <p><i>Information about the user will be here.</i></p>
+  }
+  <img src="~/Images/My-Endpoints-300x267.png" />
+</aside>

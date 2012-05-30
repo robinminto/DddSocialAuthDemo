@@ -1,0 +1,13 @@
+﻿@{
+  ViewBag.Title = "SignIn";
+}
+<hgroup class="title">
+  <h1>Sign In.</h1>
+  <h2>Now easier then ever.</h2>
+</hgroup>
+<section>
+  <p>Please sign in with any of the following:</p>
+  <p>@Html.ActionLink(" ", "LiveId", null, new { @class = "liveid", title = "Log in with Windows Live." })</p>
+  <p>@Html.ActionLink(" ", "Google", null, new { @class = "google", title="Log in with Google Account.",  })</p>
+
+</section>
